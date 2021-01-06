@@ -35,15 +35,17 @@ function App() {
     }
   }
   useEffect(()=>{
-    isAuth()
-  }
-  )
+    isAuth();
+  },[])
 
   return (
     <Fragment>
       <Router>
       <div className="container">
         <Switch>
+          <Route exact path="/" render={props=>
+          !userAuthenticated? (<Login {...props} setAuth={setAuth}/>) : (<Redirect to ="/dashboard"/>)
+          }/>
           <Route exact path="/login" render = {props =>  
             !userAuthenticated? (<Login {...props} setAuth={setAuth}/>) : (<Redirect to ="/dashboard"/>)
            }

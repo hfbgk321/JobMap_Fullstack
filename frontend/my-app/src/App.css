@@ -1,7 +1,17 @@
 .App {
   text-align: center;
 }
-
+#loginInput::placeholder{
+  color:#284B63;
+}
+#loginButton{
+  color:#D9D9D9;
+  background:#284B63;
+}
+#loginButton:hover{
+  color:#D9D9D9;
+  background:#353535;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

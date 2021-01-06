@@ -35,18 +35,24 @@ const Register =({setAuth}) => {
     }
     return (
         <Fragment>
-        <h1 className="text-center">Register</h1>
-        
-        <form onSubmit={onSubmitForm}> 
-            <input type="email" name="email" placeholder="email"  value={email} onChange={e=>fieldChange(e)} className="form-control"/>
+        <h1 style={{color:"#D9D9D9",marginTop:"5%",textAlign:"center"}}>Register</h1>
+        <div className="container" style={{borderRadius:"3%",marginTop:"10%",margin:"auto",background:"#D9D9D9",maxWidth:"450px",minHeight:"600px"}}>
+        <br></br>
+        <form style={{textAlign:"center"}} className="form-signin" onSubmit={onSubmitForm}> 
+            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#D9D9D9"}} type="email" name="email" placeholder="email"  value={email} onChange={e=>fieldChange(e)} className="form-control"/>
             <br></br>
-            <input type="text" name="username" placeholder="Username"  value={username} onChange={e=>fieldChange(e)} className="form-control"/>
+            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#D9D9D9"}} type="text" name="username" placeholder="Username"  value={username} onChange={e=>fieldChange(e)} className="form-control"/>
             <br></br>
-            <input type="password" name="password" placeholder="Password"  value={password} onChange={e=>fieldChange(e)} className="form-control"/>
+            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#D9D9D9"}} type="password" name="password" placeholder="Password"  value={password} onChange={e=>fieldChange(e)} className="form-control"/>
             <br></br>
-            <button className="btn btn-primary form-control" style={{background:"green"}}>Submit</button>
+            <button id="loginButton" style={{width:"70%",border:"0"}} className="btn btn-primary  mx-auto d-block" >Submit</button>
         </form>
-        <Link to ="/login">Login</Link>
+        <br></br>
+        <br></br>
+        <div style={{textAlign:"center"}}>
+        <Link  style={{color:"#284B63"}} to ="/login">Have An Account?</Link>
+        </div>
+        </div>
         </Fragment>
     )
 }
