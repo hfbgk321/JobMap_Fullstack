@@ -8,6 +8,7 @@ const authorize = require("../middleware/authorization");
 
 router.post("/register", validInfo,async (req,res) =>{
     try {
+
         const { username,email,password } = req.body;
         const user_email = await pool.query("SELECT * FROM users WHERE user_email = $1", [
             email
@@ -29,7 +30,7 @@ router.post("/register", validInfo,async (req,res) =>{
         );
         
         const token=jwtGenerator(newUser.rows[0].user_id);
-        
+        return res.json({token});
         
 
     } catch (error) {
@@ -49,9 +50,11 @@ router.post("/login",validInfo,async(req,res)=>{
         if(!validPassword){
             return res.status(401).json("Password Or Email is incorrect"); 
         }
+        console.log(1);
         const token=jwtGenerator(user.rows[0].user_id);
-        res.json({token})
+        return res.json({token});
     } catch (error) {
+        
         console.error(error.message);
         res.status(500).send("Server Error");
     }

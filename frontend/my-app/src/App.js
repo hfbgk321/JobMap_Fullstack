@@ -1,24 +1,66 @@
-import logo from './logo.svg';
+import React, {Fragment,useState,useEffect} from 'react';
+
 import './App.css';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom';
+
+import Dashboard from "./components/Dashboard";
+import Login from "./components/Login";
+import Register from "./components/Register";
 function App() {
+  const [userAuthenticated, setUserAuthenticated] = useState(false);
+  function setAuth(boolean){
+    setUserAuthenticated(boolean);
+  }
+  async function isAuth(){
+    try {
+      const response=await fetch("http://localhost:5000/auth/verifylogin",{
+        method:"GET",
+        headers:{token:localStorage.token}
+      });
+      const parseRes=await response.json()
+      if(parseRes===true){
+        setAuth(true)
+      }
+      else{
+        setAuth(false)
+      }
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
+  useEffect(()=>{
+    isAuth()
+  }
+  )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Router>
+      <div className="container">
+        <Switch>
+          <Route exact path="/login" render = {props =>  
+            !userAuthenticated? (<Login {...props} setAuth={setAuth}/>) : (<Redirect to ="/dashboard"/>)
+           }
+          />
+          <Route exact path="/register" render = {props =>
+            !userAuthenticated?(<Register {...props} setAuth={setAuth}/>):(<Redirect to="/dashboard"/>)
+            }
+          />
+          <Route exact path="/dashboard" render = {props =>
+          userAuthenticated?
+          (<Dashboard {...props} setAuth={setAuth}/>):
+          (<Redirect to="/login"/>)
+          }/>
+        </Switch>
+        </div>
+      </Router>
+    </Fragment>
   );
 }
 
