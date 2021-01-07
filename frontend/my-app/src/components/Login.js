@@ -48,10 +48,10 @@ const Login =({setAuth}) => {
         <br></br>
         
         <form style={{textAlign:"center"}}className="form-signin" onSubmit={onLogin}>
-            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#D9D9D9"}} name="email" value={email} type="email" placeholder="Email" onChange={e=>fieldChange(e)} ></input>
+            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"##284B63"}} name="email" value={email} type="email" placeholder="Email" onChange={e=>fieldChange(e)} ></input>
             <br></br>
             <br></br>
-            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#D9D9D9"}} name="password" value={password} type="password" placeholder="Password" onChange={e=>fieldChange(e)} ></input>
+            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#284B63"}} name="password" value={password} type="password" placeholder="Password" onChange={e=>fieldChange(e)} ></input>
             <br></br>
             <br></br>
             <button id="loginButton" style={{width:"70%",border:"0"}} className="btn btn-primary  mx-auto d-block" >Login</button>

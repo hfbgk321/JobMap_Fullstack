@@ -12,6 +12,8 @@ import {
 import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import RegisterEmployee from "./components/RegisterEmployee";
+import RegisterEmployer from "./components/RegisterEmployer";
 function App() {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   function setAuth(boolean){
@@ -58,7 +60,22 @@ function App() {
           userAuthenticated?
           (<Dashboard {...props} setAuth={setAuth}/>):
           (<Redirect to="/login"/>)
-          }/>
+          }
+
+          />
+
+          <Route exact path="/registeremployee" render={props=>
+          !userAuthenticated?
+          (<RegisterEmployee {...props} setAuth={setAuth} />):
+          (<Redirect to="/dashboard"/>)
+          }
+          />
+          <Route exact path="/registeremployer" render={props=>
+          !userAuthenticated?
+          (<RegisterEmployer {...props} setAuth={setAuth} />):
+          (<Redirect to="/dashboard"/>)
+          }
+          />
         </Switch>
         </div>
       </Router>

@@ -6,18 +6,26 @@ const Register =({setAuth}) => {
         //setInputs change values of inputs
         email:"",
         password:"",
-        username:""
+        username:"",
+        isEmployer:false,
     });
-    const {email,password,username}=inputs;
+    
+    const {email,password,username,isEmployer}=inputs;
+    const employerToggle=(e)=>{
+        setInputs({...inputs,isEmployer:e.target.checked});
+        console.log(inputs.isEmployer);
+        
+    }
     const fieldChange=(e)=>{
         setInputs({...inputs,[e.target.name]:e.target.value});
+        
     }
     const onSubmitForm= async (e)=>{
     
         e.preventDefault() // prevents refresh on submit
         try {
             const body={email,password,username};
-            const response = await fetch("http://localhost:5000/auth/register",{
+            const response = await fetch("http://localhost:5000/auth/registeremployee",{
             method:"POST",
             headers: { "Content-Type":"application/json" },
             body:JSON.stringify(body)
@@ -38,16 +46,13 @@ const Register =({setAuth}) => {
         <h1 style={{color:"#D9D9D9",marginTop:"5%",textAlign:"center"}}>Register</h1>
         <div className="container" style={{borderRadius:"3%",marginTop:"10%",margin:"auto",background:"#D9D9D9",maxWidth:"450px",minHeight:"600px"}}>
         <br></br>
-        <form style={{textAlign:"center"}} className="form-signin" onSubmit={onSubmitForm}> 
-            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#D9D9D9"}} type="email" name="email" placeholder="email"  value={email} onChange={e=>fieldChange(e)} className="form-control"/>
-            <br></br>
-            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#D9D9D9"}} type="text" name="username" placeholder="Username"  value={username} onChange={e=>fieldChange(e)} className="form-control"/>
-            <br></br>
-            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#D9D9D9"}} type="password" name="password" placeholder="Password"  value={password} onChange={e=>fieldChange(e)} className="form-control"/>
-            <br></br>
-            <button id="loginButton" style={{width:"70%",border:"0"}} className="btn btn-primary  mx-auto d-block" >Submit</button>
-        </form>
-        <br></br>
+        <h2 style={{color:"#284B63",textAlign:"center"}}>Are your registering as an employee or business?</h2>
+        <button id="loginButton" style={{marginTop:"10px" ,width:"40%",border:"0"}} className="btn btn-primary  mx-auto d-block">
+        <Link style={{marginTop:"10%",textDecoration:"none",color:"#D9D9D9"}} to="/RegisterEmployee">Employee</Link>
+        </button>
+        <button id="loginButton" style={{marginTop:"10px" ,width:"40%",border:"0"}} className="btn btn-primary  mx-auto d-block">
+        <Link style={{textDecoration:"none",color:"#D9D9D9"}} to="/RegisterEmployer">Business</Link>
+        </button>
         <br></br>
         <div style={{textAlign:"center"}}>
         <Link  style={{color:"#284B63"}} to ="/login">Have An Account?</Link>
