@@ -17,4 +17,19 @@ router.get("/",authorize,async(req,res)=>{
         res.status(500).send("Server Error");
     }
 });
+router.get("/employerlocs",async(req,res)=>{
+    try {
+        //res.json(req.user);
+        
+        var employers=await pool.query("SELECT  user_name, address_long,address_lat  FROM employer");
+        console.log(1)
+        
+        return res.json(employers.rows);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Server Error");
+    }
+});
+module.exports=router;
+
 module.exports=router;

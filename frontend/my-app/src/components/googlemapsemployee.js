@@ -1,18 +1,40 @@
 import React, { Fragment,setState,useState,Component, useEffect } from 'react';
-import { Map, GoogleApiWrapper ,Marker} from 'google-maps-react';
+import { Map, GoogleApiWrapper ,InfoWindow,Marker} from 'google-maps-react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 
 const API_KEY=process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 
 const GMap=()=>{
-    
+  
+    // stores: [{lat: 47.49855629475769, lng: -122.14184416996333},
+    //         {latitude: 47.359423, longitude: -122.021071},
+    //         {latitude: 47.2052192687988, longitude: -121.988426208496},
+    //         {latitude: 47.6307081, longitude: -122.1434325},
+    //         {latitude: 47.3084488, longitude: -122.2140121},
+    //         {latitude: 47.5524695, longitude: -122.0425407}]
+  
+const displayMarkers = () => {
+  return userLoc.stores.map((store, index) => {
+    return <Marker  onClick={()=>openEmployer(store.employername)} key={index} id={index} position={{
+     lat: store.latitude,
+     lng: store.longitude
+   }}
+  />
+  })
+}
+const openEmployer =(str)=>{
+    document.getElementById("employerName").innerHTML=str;
+    document.getElementById("employerName").style.display="block";
+}
       const [userLoc,setLoc]=useState({
           lat:0,
           lng:0,
           orgLat:0,
-          orgLng:0
+          orgLng:0,
+          stores:[]
       });
       useEffect(()=>{
           geocode();
@@ -49,18 +71,30 @@ const GMap=()=>{
         });
         
         const parseRes=await response.json()
+        const res=await fetch("http://localhost:5000/dashboard/employerlocs",{
+          method:"GET",
+          headers:{token:localStorage.token}
+        });
+        const empLoc=await res.json()
+        var empList=[]
+        for(let i=0;i<empLoc.length;i++){
+          empList.push({employername:empLoc[i].user_name,latitude:empLoc[i].address_lat,longitude:empLoc[i].address_long})
+        }
+        setLoc({...userLoc,lat:parseRes.address_lat,lng:parseRes.address_long,orgLat:parseRes.address_lat,orgLng:parseRes.address_long,stores:empList})
+       
         
-        setLoc({...userLoc,lat:parseRes.address_lat,lng:parseRes.address_long,orgLat:parseRes.address_lat,orgLng:parseRes.address_long})
-        
-        
+       
         } catch (error) {
             console.error(error.message)
         }
       }
+      console.log(userLoc)
     return (
      <Fragment>
      <h1 style={{textAlign:"center",color:"white"}}>{userLoc.lat}</h1>
      <h1 style={{ textAlign:"center",color:"white"}}>{userLoc.lng}</h1>
+     <h1 id="employerName"style={{display:"none", textAlign:"center",color:"white"}}>{userLoc.lng}</h1>
+     
      <form onSubmit={updateLoc}>
      <input id="newAddress" type="text" name="newAddress" placeholder="Enter New Address"></input>
      <button style={{width:"10%",border:"0"}} className="btn btn-primary  mx-auto d-block">Search</button>
@@ -84,7 +118,8 @@ const GMap=()=>{
           }
         }
       >
-        <Marker position={{ lat:userLoc.lat, lng:userLoc.lng}} />     
+        <Marker  position={{ lat:userLoc.lat, lng:userLoc.lng}} /> 
+        {displayMarkers()}       
       </Map>
       </div>
       </Fragment>

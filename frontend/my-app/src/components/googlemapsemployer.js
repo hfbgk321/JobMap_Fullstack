@@ -7,7 +7,7 @@ const API_KEY=process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
 
 
 const GMap=()=>{
-    
+  
       const [userLoc,setLoc]=useState({
           lat:0,
           lng:0,
@@ -55,7 +55,8 @@ const GMap=()=>{
           }
         }
       >
-        <Marker position={{ lat:userLoc.lat, lng:userLoc.lng}} />     
+        <Marker position={{ lat:userLoc.lat, lng:userLoc.lng}} />  
+        
       </Map>
       </div>
       </Fragment>
