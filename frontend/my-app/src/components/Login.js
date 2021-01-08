@@ -56,7 +56,7 @@ const Login =({setAuth}) => {
             <br></br>
             <button id="loginButton" style={{width:"70%",border:"0"}} className="btn btn-primary  mx-auto d-block" >Login</button>
         </form>
-        <h3 style={{ width: "70%", textAlign:"center", borderBottom: "1px solid #284B63", lineHeight: "0.1em" ,margin: "10px auto 20px"}}><span style={{textAlign:"center",background:"#D9D9D9", padding:"0 10px", fontSize:"20px",color:"#284B63"}}>or</span></h3>
+        <h3 style={{ width: "70%", textAlign:"center", borderBottom: "1px solid #284B63", lineHeight: "0.1em" ,margin: "10px auto 20px"}}><span style={{textAlign:"center",background:"#D9D9D9", padding:"0 10px", fontSize:"17px",color:"#284B63"}}>or</span></h3>
         <button id="loginButton" style={{marginTop:"10px" ,width:"70%",border:"0"}} className="btn btn-primary  mx-auto d-block">
         <Link style={{textDecoration:"none",color:"#D9D9D9"}} to="/register">Create New Account</Link>
         </button>
@@ -64,8 +64,7 @@ const Login =({setAuth}) => {
         <div style={{textAlign:"center"}}>
         <Link style={{color:"#284B63"}} to="/register">Forget Password</Link>
         </div>
-        <h1 id="invalidInfo"style={{display:"none"}}>Invalid Credentials</h1>
-        
+        <h2 style={{fontSize:"20px",color:"#284B63",textAlign:"center",display:"none"}} id="invalidInfo">Invalid Email Or Password</h2>
         </div>
         </Fragment>
         

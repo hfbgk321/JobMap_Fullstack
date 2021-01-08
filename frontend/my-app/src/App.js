@@ -14,6 +14,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import RegisterEmployee from "./components/RegisterEmployee";
 import RegisterEmployer from "./components/RegisterEmployer";
+
 function App() {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   function setAuth(boolean){

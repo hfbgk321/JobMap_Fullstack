@@ -8,12 +8,10 @@ const RegisterEmployee =({setAuth}) => {
         password:"",
         firstname:"",
         lastname:"",
-        resume:"",
         employeeaddress:"",
-        isEmployer:false,
     });
     
-    const {email,password,firstname,lastname,resume,employeeaddress}=inputs;
+    const {email,password,firstname,lastname,employeeaddress}=inputs;
     const fieldChange=(e)=>{
         setInputs({...inputs,[e.target.name]:e.target.value});
         
@@ -22,7 +20,7 @@ const RegisterEmployee =({setAuth}) => {
     
         e.preventDefault() // prevents refresh on submit
         try {
-            const body={email,password,firstname,lastname,resume,employeeaddress};
+            const body={email,password,firstname,lastname,employeeaddress};
             const response = await fetch("http://localhost:5000/auth/registeremployee",{
             method:"POST",
             headers: { "Content-Type":"application/json" },
@@ -55,8 +53,8 @@ const RegisterEmployee =({setAuth}) => {
             <br></br>
             <input  id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#284B63"}} type="text" name="employeeaddress" placeholder="Home Address (Optional)"  value={employeeaddress} onChange={e=>fieldChange(e)} className="form-control"/>
             <br></br>
-            <h1 style={{fontSize:"17px",color:"#284B63"}}>Upload Your Resume (Optional)</h1>
-            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#284B63"}} type="file"  name="resume" placeholder="Upload Resume"  value={resume} onChange={e=>fieldChange(e)} className="form-control" accept="image/jpeg, application/pdf, application/msword" />
+            {/* <h1 style={{fontSize:"17px",color:"#284B63"}}>Upload Your Resume (Optional)</h1>
+            <input id="loginInput"style={{borderColor:"#284B63",outline:"0",borderWidth:"0 0 2px",margin:"auto",width:"70%",background:"transparent",color:"#284B63"}} type="file"  name="resume" placeholder="Upload Resume"  value={resume} onChange={e=>fieldChange(e)} className="form-control" accept="image/jpeg, application/pdf, application/msword" /> */}
             <br></br>
             
             <button id="loginButton" style={{width:"70%",border:"0"}} className="btn btn-primary  mx-auto d-block" >Register</button>
