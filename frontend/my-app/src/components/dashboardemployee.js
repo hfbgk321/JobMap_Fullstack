@@ -1,5 +1,5 @@
 import React,{Fragment,useState,useEffect} from 'react';
-
+import GoogleApiWrapper from './googlemapsemployee'
 
 const Dashboardemployee =({setAuth}) => {
     const[user,setUser]=useState({
@@ -39,7 +39,9 @@ const Dashboardemployee =({setAuth}) => {
         <h1 style={{textAlign:"center"}}>{user.lastname}</h1>
         <h1 style={{textAlign:"center"}}>{user.email}</h1>
         <button  className="btn btn-primary mx-auto d-block" onClick={ (e) =>logout(e)}>Log Out</button>
-       
+        <div style={{display:"block",margin:"auto"}}>
+        <GoogleApiWrapper  ></GoogleApiWrapper>
+        </div>
         </Fragment>
     );
 };

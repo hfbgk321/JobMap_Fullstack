@@ -16,6 +16,9 @@ const RegisterEmployee =({setAuth}) => {
         setInputs({...inputs,[e.target.name]:e.target.value});
         
     }
+    const invalidInfo =() =>{
+        document.getElementById("invalidInfo").style.display="block";
+    }
     const onSubmitForm= async (e)=>{
     
         e.preventDefault() // prevents refresh on submit
@@ -34,6 +37,7 @@ const RegisterEmployee =({setAuth}) => {
             }
             
         } catch (error) {
+            invalidInfo()
             console.error(error.message)
         }
     }

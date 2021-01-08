@@ -11,6 +11,16 @@ router.post("/registeremployee", validInfo,async (req,res) =>{
     try {
         
         const {email,password,firstname,lastname,employeeaddress } = req.body;
+        const promise= await axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+                  params:{
+                      address:employeeaddress,
+                      key:API_KEY
+                  }
+              });
+        
+        const loc=promise.data
+        const coords=loc.results[0].geometry.location
+        console.log(coords)
         var user_email = await pool.query("SELECT * FROM employeeusers WHERE user_email = $1", [
             email
           ]);
@@ -27,8 +37,8 @@ router.post("/registeremployee", validInfo,async (req,res) =>{
         const salt=await bcrypt.genSalt(saltRound);   //process encryptions
         const bcryptPw=await bcrypt.hash(password,salt);  //bcrypt
         
-        const newUser = await pool.query("INSERT INTO employeeusers (first_name,last_name,user_email,user_password,user_address) VALUES ($1,$2,$3,$4,$5) RETURNING *",
-        [firstname,lastname,email,bcryptPw,employeeaddress]
+        const newUser = await pool.query("INSERT INTO employeeusers (first_name,last_name,user_email,user_password,user_address,address_long,address_lat) VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *",
+        [firstname,lastname,email,bcryptPw,employeeaddress,coords.lng,coords.lat]
         );
 
         const token=jwtGenerator(newUser.rows[0].user_id);
